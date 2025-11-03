@@ -44,7 +44,7 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
 
   Future<void> _onAddTask(_AddTask event, Emitter<TaskState> emit) async {
     emit(state.copyWith(status: TaskStatus.loading));
-    final result = await _useCase.a(userId: '10', createdBy: 'shuvo');
+    final result = await _useCase.addTask(request: event.task);
 
     result.fold(
           (failure) {

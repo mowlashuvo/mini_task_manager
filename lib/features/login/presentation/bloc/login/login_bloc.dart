@@ -8,9 +8,9 @@ part 'login_event.dart';
 part 'login_bloc.freezed.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  final LoginUseCase loginUseCase;
+  final LoginUseCase _useCase;
 
-  AuthBloc({required this.loginUseCase}) : super(const AuthState()) {
+  AuthBloc({required LoginUseCase loginUseCase}) : _useCase = loginUseCase, super(const AuthState()) {
     on<_Login>(_onLogin);
   }
 
@@ -18,7 +18,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(state.copyWith(status: AuthStatus.loading, message: null));
 
     try {
-      final UserEntity user = await loginUseCase(event.username, event.password);
+      final result = await _useCase.getLogin(event.username, event.password);
       emit(state.copyWith(status: AuthStatus.success, user: user));
     } catch (e) {
       emit(state.copyWith(

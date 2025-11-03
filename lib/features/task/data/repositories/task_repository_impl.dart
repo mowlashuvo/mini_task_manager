@@ -29,7 +29,7 @@ class TaskRepositoryImpl implements TaskRepository {
   }
 
   @override
-  Future<Either<Failure, void>> addTask(TaskEntity task) {
+  Future<Either<Failure, TaskListEntity>> addTask({required TaskEntity request}) {
     // TODO: implement addTask
     throw UnimplementedError();
   }
